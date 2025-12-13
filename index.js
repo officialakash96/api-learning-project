@@ -40,7 +40,7 @@ async function createPost() {
         });
         if (response.ok) {
             const data = await response.json();
-            console.log('[POST] Created Post:',data);
+            console.log('Created Post:',data);
             return data;
         }
         else {
