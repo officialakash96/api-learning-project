@@ -23,24 +23,6 @@ async function getPosts() {
 
 }
 
-
-//create array of objects to pass
-
-const dataToPost = [{
-    title: 'My new Post 1',
-    body: 'This is the conetent of my new post 1',
-    userId: 1
-},{
-    title: 'My new Post 2',
-    body: 'This is the conetent of my new post 2',
-    userId: 2
-},{
-    title: 'My new Post 3',
-    body: 'This is the conetent of my new post 3',
-    userId: 3
-
-}];
-
 //POST: create data together using array of objects
 async function createPost() {
 
@@ -50,7 +32,11 @@ async function createPost() {
             headers: {
                 'Content-Type': 'application/json; charset=UTF-8',
             },
-            body: JSON.stringify(dataToPost)
+            body: JSON.stringify({
+                title: 'My new Post 1',
+                body: 'This is the conetent of my new post 1',
+                userId: 1
+            })
         });
         if (response.ok) {
             const data = await response.json();
