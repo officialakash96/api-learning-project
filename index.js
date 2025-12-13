@@ -24,5 +24,79 @@ async function getPosts() {
 }
 
 
+//create array of objects to pass
+
+const dataToPost = [{
+    title: 'My new Post 1',
+    body: 'This is the conetent of my new post 1',
+    userId: 1
+},{
+    title: 'My new Post 2',
+    body: 'This is the conetent of my new post 2',
+    userId: 2
+},{
+    title: 'My new Post 3',
+    body: 'This is the conetent of my new post 3',
+    userId: 3
+
+}];
+
+//POST: create data together using array of objects
+async function createPost() {
+
+    try {
+        const response = await fetch(`${BASE_URL}/posts`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json; charset=UTF-8',
+            },
+            body: JSON.stringify(dataToPost)
+        });
+        if (response.ok) {
+            const data = await response.json();
+            console.log('[POST] Created Post:',data);
+            return data;
+        }
+        else {
+            console.error('Failed to post records:',response.status);    
+        }
+
+    }
+    catch (error) {
+        console.error('An error occurred during the fetch operation:', error);
+    }
+    
+}
+
+
+/* //Create one record in one POST request
+async function createPost(record) {
+
+   return fetch(`${BASE_URL}/posts`, {
+    method: 'POST',
+    headers: 'Content-Type: application/json; charset=UTF-8',
+    body: JSON.stringify(record)
+   }).then(response => response.json());
+    
+}
+
+//use the function createPost() to call from this method to post all the records asyncronously:
+async function postAllRecords() {
+    try {
+        const promises = dataToPost.map(record => createPost(record));
+        //wait for all promises in the array to resolve:
+        const results = await Promise.all(promises);
+        console.log('All records posted individually:',results());
+    }
+    catch (error) {
+        console.error('An error occurred during the fetch operation:', error);
+    }
+}
+ */
+
+
 //execute the function:
+
 getPosts();
+createPost();
+//postAllRecords();
