@@ -54,6 +54,32 @@ async function createPost() {
     
 }
 
+//PUT: Update data------
+async function updatePost() {
+    const response = await fetch(`${BASE_URL}/posts/1`,{
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: JSON.stringify({
+            id: 1,
+            title: 'Updated title',
+            body: 'Updated the content.',
+            userId: 1
+        })
+    });
+    const data = await response.json();
+    console.log('[PUT] Updated Post:', data);
+}
+
+//----DELETE: Delete data---------
+async function deletePost() {
+    const response = await fetch(`${BASE_URL}/posts/1`,{
+        method: 'DELETE',
+    });
+    //DELETE usually returns an empty object or a 200 success response
+    console.log('[DELETE Post #1 deleted! Status:',response.status);
+}
 
 /* //Create one record in one POST request
 async function createPost(record) {
@@ -83,6 +109,12 @@ async function postAllRecords() {
 
 //execute the function:
 
-getPosts();
-createPost();
-//postAllRecords();
+async function runAll() {
+    await getPosts();
+    await createPost();
+    //postAllRecords();
+    await updatePost();
+    await deletePost();
+}
+
+runAll();
