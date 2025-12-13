@@ -14,7 +14,7 @@ async function getPosts() {
         //convert the reveived raw response into JSON format
         const data = await response.json();
 
-        console.log('Success! Here is the data received from fetch:',data);
+        console.log('Success! Post Title:',data);
 
     }
     catch (error) {
@@ -40,7 +40,7 @@ async function createPost() {
         });
         if (response.ok) {
             const data = await response.json();
-            console.log('Created Post:',data);
+            console.log('Sucess! Created Post:',data);
             return data;
         }
         else {
@@ -69,7 +69,7 @@ async function updatePost() {
         })
     });
     const data = await response.json();
-    console.log('[PUT] Updated Post:', data);
+    console.log('Success! [PUT] Updated Post:', data);
 }
 
 //----DELETE: Delete data---------
@@ -78,7 +78,7 @@ async function deletePost() {
         method: 'DELETE',
     });
     //DELETE usually returns an empty object or a 200 success response
-    console.log('[DELETE Post #1 deleted! Status:',response.status);
+    console.log('Success! [DELETE Post #1 deleted! Status:',response.status);
 }
 
 /* //Create one record in one POST request
