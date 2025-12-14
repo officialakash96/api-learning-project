@@ -18,10 +18,13 @@ async function getPosts() {
         //throw new Error('Custom error!');
         //code to aysncronously fetch records:
         const response = await fetch(`${BASE_URL}/posts/1`); //fetch sends the request and 'await' waits for the response
-        console.log('Response from website: ',response.status);
+
+        //Check if server responded with an error status (like 400 or 500):
+        if (!response.ok) {
+            throw new Error(`Server error: ${response.status} ${response.statusText}`);
+        }
         //convert the reveived raw response into JSON format
         const data = await response.json();
-
         console.log('Success! Post Title:',data);
 
     }
@@ -46,15 +49,13 @@ async function createPost() {
                 userId: 1
             })
         });
-        if (response.ok) {
-            const data = await response.json();
-            console.log('Sucess! Created Post:',data);
-            return data;
+        if (!response.ok) {
+            throw new Error(`Server error: ${response.status} ${response.statusText}`);
         }
-        else {
-            console.error('Failed to post records:',response.status);    
-        }
-
+        const data = await response.json();
+        console.log('Sucess! Created Post:',data);
+        //return data;
+        
     }
     catch (error) {
         console.error('An error occurred during the fetch operation:', error);
@@ -64,29 +65,50 @@ async function createPost() {
 
 //PUT: Update data------
 async function updatePost() {
-    const response = await fetch(`${BASE_URL}/posts/1`,{
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: JSON.stringify({
-            id: 1,
-            title: 'Updated title',
-            body: 'Updated the content.',
-            userId: 1
-        })
-    });
-    const data = await response.json();
-    console.log('Success! [PUT] Updated Post:', data);
+    try {
+        const response = await fetch(`${BASE_URL}/posts/1`,{
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json; charset=UTF-8',
+            },
+            body: JSON.stringify({
+                id: 1,
+                title: 'Updated title',
+                body: 'Updated the content.',
+                userId: 1
+            })
+        });
+         //Check if server responded with an error status (like 400 or 500):
+         if (!response.ok) {
+            throw new Error(`Server error: ${response.status} ${response.statusText}`);
+        }
+        const data = await response.json();
+        console.log('Success! [PUT] Updated Post:', data);
+    }
+    catch (error) {
+        console.error('Error updating record!:',error);
+    }
+    
 }
 
 //----DELETE: Delete data---------
 async function deletePost() {
-    const response = await fetch(`${BASE_URL}/posts/1`,{
-        method: 'DELETE',
-    });
-    //DELETE usually returns an empty object or a 200 success response
-    console.log('Success! [DELETE Post #1 deleted! Status:',response.status);
+    try {
+        const response = await fetch(`${BASE_URL}/posts/1`,{
+            method: 'DELETE',
+        });
+         //Check if server responded with an error status (like 400 or 500):
+         if (!response.ok) {
+            throw new Error(`Server error: ${response.status} ${response.statusText}`);
+        }
+        //DELETE usually returns an empty object or a 200 success response
+        console.log('Success! [DELETE] Post #1 deleted! Status:',response.status);
+
+    }
+    catch (error) {
+        console.error('Error deleting record!:',error);
+    }
+    
 }
 
 /* //Create one record in one POST request
