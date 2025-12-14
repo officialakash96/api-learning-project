@@ -125,7 +125,7 @@ async function getPostsByUser(userId) {
             throw new Error (`Server error: ${response.status} ${response.statusText}`);
         }
         const data = await response.json();
-        console.log(`Success! Fetched ${data.length} users by userId ${userId}: `,data);
+        console.log(`Success! Fetched ${data.length} posts by userId ${userId}: `,data);
 
     }
     catch (error) {
