@@ -1,6 +1,14 @@
+//1. Load the enviornment variables
+require('dotenv').config();
 
-//Define the URL of the API (The "Endpoint")
-const BASE_URL = 'https://jsonplaceholder.typicode.com';
+//2. Readh the URL from environment (process.env)
+const BASE_URL = process.env.API_URL;
+
+//3. Check if above env variable works for fetching (good for debugging)
+if (!BASE_URL) {
+    console.error("Error: API_URL is missing from .env file!");
+    process.exit(1);
+}
 
 //Define a function to get data
 async function getPosts() {
