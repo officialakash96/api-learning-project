@@ -169,6 +169,7 @@ async function runAll() {
     await updatePost();
     await deletePost();
     await getPostsByUser(1);
+
 }
 
 runAll();
