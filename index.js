@@ -111,6 +111,29 @@ async function deletePost() {
     
 }
 
+//--SEARCH user by userId-----------------
+
+async function getPostsByUser(userId) {
+    //append search parameter in existing BASE_URL
+    const SEARCH_URL = `${BASE_URL}/posts?userId=${userId}`;
+
+    try {
+
+        const response = await fetch(SEARCH_URL);
+        //add error handling for HTTP status codes:
+        if (!response.ok) {
+            throw new Error (`Server error: ${response.status} ${response.statusText}`);
+        }
+        const data = await response.json();
+        console.log(`Success! Fetched ${data.length} users by userId ${userId}: `,data);
+
+    }
+    catch (error) {
+        console.error(`Error fetching ${userId} from server:`,error);
+    }
+
+}
+
 /* //Create one record in one POST request
 async function createPost(record) {
 
@@ -145,6 +168,7 @@ async function runAll() {
     //postAllRecords();
     await updatePost();
     await deletePost();
+    await getPostsByUser(1);
 }
 
 runAll();
